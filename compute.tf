@@ -8,16 +8,22 @@ resource "digitalocean_ssh_key" "ruslan" {
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+NkXLa0cvXkuV9DeM2i4+Jk7Sh/OSyxrzrD5vavyK2 ruslandoga@do"
 }
 
+resource "digitalocean_reserved_ip" "docker" {
+  count  = local.droplet_count
+  region = local.region
+}
+
 resource "digitalocean_droplet" "docker" {
-  region = "sgp1"
+  count  = local.droplet_count
+  region = local.region
   size   = "s-1vcpu-2gb"
   image  = "docker-20-04"
 
-  name = "docker-ubuntu-s-1vcpu-2gb-sgp1-01"
-  tags = [digitalocean_tag.sin.id]
+  name = "since-backend-${count.index}"
+  tags = [digitalocean_tag.since.id, digitalocean_tag.since_backend.id]
 
   ipv6     = true
-  vpc_uuid = digitalocean_vpc.sin.id
+  vpc_uuid = digitalocean_vpc.since_fra1.id
 
   ssh_keys = [
     digitalocean_ssh_key.ruslan.fingerprint,
@@ -31,6 +37,7 @@ resource "digitalocean_droplet" "docker" {
 
   user_data = null
 
+  # TODO
   #   user_data = <<EOF
   #   #!/bin/sh
   #   ufw deny 2375
@@ -42,6 +49,7 @@ resource "digitalocean_droplet" "docker" {
 }
 
 resource "digitalocean_reserved_ip_assignment" "docker" {
-  ip_address = digitalocean_reserved_ip.docker.ip_address
-  droplet_id = digitalocean_droplet.docker.id
+  count      = local.droplet_count
+  ip_address = digitalocean_reserved_ip.docker[count.index].ip_address
+  droplet_id = digitalocean_droplet.docker[count.index].id
 }

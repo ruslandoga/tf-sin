@@ -1,17 +1,13 @@
-resource "digitalocean_vpc" "sin" {
-  name        = "sin"
-  region      = "sgp1"
-  ip_range    = "10.0.66.0/24"
-  description = "it's a sin"
-}
-
-resource "digitalocean_reserved_ip" "docker" {
-  region = "sgp1"
+resource "digitalocean_vpc" "since_fra1" {
+  name        = "since"
+  region      = "fra1"
+  ip_range    = "10.0.1.0/24"
+  description = "getsince.app fra1 vpc"
 }
 
 resource "digitalocean_firewall" "docker" {
-  name = "sin"
-  tags = [digitalocean_tag.sin.id]
+  name = "since"
+  tags = [digitalocean_tag.since_backend.id]
 
   # allow pings
   inbound_rule {
