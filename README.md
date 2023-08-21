@@ -38,13 +38,12 @@ test3
 
 ```console
 $ LOCAL_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
-$ docker run -ti --rm --network host --name test3 \
-  -e PHX_SERVER=true -e PORT=4000 \
+$ docker run -d --restart always --network host --name test3 \
+  -e PHX_SERVER=true -e PORT=4000 -e "HOST=b-do.getsince.aoo" -e "CHECK_ORIGIN=//*.getsince.app" -e "SECRET_KEY_BASE=${SECRET_KEY_BASE}" \
   -e ERL_MAX_PORTS=1024 \
-  -e RELEASE_DISTRIBUTION=name -e "RELEASE_NODE=t@10.0.1.2" -e "RELEASE_COOKIE=${RELEASE_COOKIE}" -e "PRIMARY_HOST_PREFIX=10.0.1." \
+  -e RELEASE_DISTRIBUTION=name -e "RELEASE_NODE=t@${LOCAL_IPV4}" -e "RELEASE_COOKIE=${RELEASE_COOKIE}" -e "PRIMARY_HOST_PREFIX=10.0.1." \
   -e "DIGITALOCEAN_API_TOKEN=${DIGITALOCEAN_API_TOKEN}" \
   -e "DATABASE_URL=${DATABASE_URL}" \
-  -e "SECRET_KEY_BASE=${SECRET_KEY_BASE}" -e "HOST=${HOST}" -e "CHECK_ORIGIN=${CHECK_ORIGIN}" \
   -e "DASHBOARD_USERNAME=${DASHBOARD_USERNAME}" -e "DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD}" \
   -e "IMGPROXY_PREFIX=${IMGPROXY_PREFIX}" -e "IMGPROXY_KEY=${IMGPROXY_KEY}" -e "IMGPROXY_SALT=${IMGPROXY_SALT}" \
   -e "MAXMIND_LICENSE_KEY=${MAXMIND_LICENSE_KEY}" \
