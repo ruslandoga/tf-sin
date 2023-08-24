@@ -39,7 +39,7 @@ test3
 ```console
 $ LOCAL_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
 $ docker run -d --restart always --network host --name test3 \
-  -e PHX_SERVER=true -e PORT=4000 -e "HOST=b-do.getsince.aoo" -e "CHECK_ORIGIN=//*.getsince.app" -e "SECRET_KEY_BASE=${SECRET_KEY_BASE}" \
+  -e PHX_SERVER=true -e PORT=4000 -e "HOST=b.getsince.app" -e "CHECK_ORIGIN=//*.getsince.app" -e "SECRET_KEY_BASE=${SECRET_KEY_BASE}" \
   -e ERL_MAX_PORTS=1024 \
   -e RELEASE_DISTRIBUTION=name -e "RELEASE_NODE=t@${LOCAL_IPV4}" -e "RELEASE_COOKIE=${RELEASE_COOKIE}" -e "PRIMARY_HOST_PREFIX=10.0.1." \
   -e "DIGITALOCEAN_API_TOKEN=${DIGITALOCEAN_API_TOKEN}" \
@@ -53,7 +53,7 @@ $ docker run -d --restart always --network host --name test3 \
   -e "SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}" -e "SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}" \
   -e "APNS_TOPIC=${APNS_TOPIC}" -e "APNS_TEAM_ID=${APNS_TEAM_ID}" -e "PROD_APNS_KEY_ID=${PROD_APNS_KEY_ID}" -e "PROD_APNS_KEY=${PROD_APNS_KEY}" -e "SANDBOX_APNS_KEY_ID=${SANDBOX_APNS_KEY_ID}" -e "SANDBOX_APNS_KEY=${SANDBOX_APNS_KEY}" -e "APP_STORE_ISSUER_ID=${APP_STORE_ISSUER_ID}" \
   -e "APP_STORE_KEY_ID=${APP_STORE_KEY_ID}" -e "APP_STORE_KEY=${APP_STORE_KEY}" \
-  ghcr.io/getsince/test3:pr-930
+  ghcr.io/getsince/test3:master
 ```
 
 Re `ERL_MAX_PORTS=1024` see https://elixirforum.com/t/elixir-erlang-docker-containers-ram-usage-on-different-oss-kernels/57251
