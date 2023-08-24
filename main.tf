@@ -5,6 +5,14 @@ terraform {
       version = "~> 2.0"
     }
   }
+
+  cloud {
+    organization = "since"
+
+    workspaces {
+      name = "ocean"
+    }
+  }
 }
 
 variable "do_token" {}
