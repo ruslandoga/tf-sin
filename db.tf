@@ -21,13 +21,6 @@ resource "digitalocean_database_user" "kindersince" {
 resource "digitalocean_database_firewall" "t_prod" {
   cluster_id = digitalocean_database_cluster.t_prod.id
 
-  # TODO remove :)
-  # ruslan at punspace
-  rule {
-    type  = "ip_addr"
-    value = "180.183.200.245"
-  }
-
   rule {
     type  = "tag"
     value = digitalocean_tag.since_backend.id

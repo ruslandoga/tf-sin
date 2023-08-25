@@ -16,11 +16,11 @@ resource "digitalocean_firewall" "docker" {
   }
 
   # allow ssh
-  inbound_rule {
-    port_range       = "22"
-    protocol         = "tcp"
-    source_addresses = ["0.0.0.0/0", "::/0"]
-  }
+  # inbound_rule {
+  #   port_range       = "22"
+  #   protocol         = "tcp"
+  #   source_addresses = ["0.0.0.0/0", "::/0"]
+  # }
 
   # allow https
   inbound_rule {
