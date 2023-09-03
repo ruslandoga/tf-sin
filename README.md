@@ -5,10 +5,10 @@ $ docker run -d --restart always --network host --name imgproxy \
   -e IMGPROXY_LOG_LEVEL=warn \
   -e IMGPROXY_MAX_SRC_RESOLUTION=100 \
   -e IMGPROXY_JPEG_PROGRESSIVE=true \
-  -e "IMGPROXY_ALLOWED_SOURCES=https://since-when-are-you-happy.s3.amazonaws.com/" \
+  -e "IMGPROXY_ALLOWED_SOURCES=${USER_CDN}/" \
   -e "IMGPROXY_KEY=${IMGPROXY_KEY}" \
   -e "IMGPROXY_SALT=${IMGPROXY_SALT}" \
-   imgproxy.env darthsim/imgproxy:v2
+   darthsim/imgproxy:v2
 ```
 
 caddy
@@ -50,7 +50,7 @@ $ docker run -d --restart always --network host --name test3 \
   -e "TG_BOT_KEY=${TG_BOT_KEY}" -e "TG_ROOM_ID=${TG_ROOM_ID}" \
   -e "SENTRY_DSN=${SENTRY_DSN}" \
   -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" \
-  -e "AWS_S3_BUCKET=${AWS_S3_BUCKET}" \
+  -e "AWS_S3_BUCKET=${AWS_S3_BUCKET}" -e "USER_CDN=${USER_CDN}" \
   -e "AWS_S3_BUCKET_STATIC=${AWS_S3_BUCKET_STATIC}" -e "STATIC_CDN=${STATIC_CDN}" \
   -e "AWS_S3_BUCKET_MEDIA=${AWS_S3_BUCKET_MEDIA}" -e "MEDIA_CDN=${MEDIA_CDN}" \
   -e "AWS_S3_BUCKET_EVENTS=${AWS_S3_BUCKET_EVENTS}" \
