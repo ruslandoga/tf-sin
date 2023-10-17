@@ -18,11 +18,11 @@ caddy
   admin 127.0.0.1:2019
 }
 
-b-do.getsince.app {
+b.getsince.app {
   reverse_proxy localhost:4000
 }
 
-seeing-do.getsince.app {
+seeing.getsince.app {
   reverse_proxy localhost:8080
 }
 ```
@@ -37,11 +37,11 @@ $ docker run -d --restart always --network host --name caddy \
 test3
 
 ```console
-$ LOCAL_IPV4=$(curl http://169.254.169.254/metadata/v1/interfaces/private/0/ipv4/address)
+$ LOCAL_IPV4=$(curl http://169.254.169.254/v1/interfaces/1/ipv4/address)
 $ docker run -d --restart always --network host --name test3 \
   -e PHX_SERVER=true -e PORT=4000 -e "HOST=b.getsince.app" -e "CHECK_ORIGIN=//*.getsince.app" -e "SECRET_KEY_BASE=${SECRET_KEY_BASE}" \
   -e ERL_MAX_PORTS=1024 \
-  -e RELEASE_DISTRIBUTION=name -e "RELEASE_NODE=t@${LOCAL_IPV4}" -e "RELEASE_COOKIE=${RELEASE_COOKIE}" -e "PRIMARY_HOST_PREFIX=10.0.1." \
+  -e RELEASE_DISTRIBUTION=name -e "RELEASE_NODE=t@${LOCAL_IPV4}" -e "RELEASE_COOKIE=${RELEASE_COOKIE}" -e "PRIMARY_HOST_PREFIX=10.0.0." \
   -e "DIGITALOCEAN_API_TOKEN=${DIGITALOCEAN_API_TOKEN}" \
   -e "DATABASE_URL=${DATABASE_URL}" \
   -e "DASHBOARD_USERNAME=${DASHBOARD_USERNAME}" -e "DASHBOARD_PASSWORD=${DASHBOARD_PASSWORD}" \
